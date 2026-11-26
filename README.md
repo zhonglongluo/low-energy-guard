@@ -32,10 +32,10 @@ Most productivity apps push relentless self-discipline, turning low-battery days
 
 ## 🧩 5 Core Modules
 
-### 1. 🥄 Spoon Energy Management
-- Log your real daily energy budget (`1–12 spoons`) plus recharge actions (`+1 / +2` for naps, walks, breathing, warm food).
-- Grade tasks by energy cost (`1–4 spoons`) and auto-hide overload on low days.
-- Includes a **"Just One Small Thing" picker** + **5-minute gentle starter** to break paralysis without pressure.
+### 1. 🥄 Relative Spoon Energy Management (With Sleep Reverse Modifier)
+- **No fixed universal scale**: Customize your own full-battery baseline (`5–15`) instead of forcing everyone onto the same fixed number.
+- **Automatic Sleep Reverse Modifier**: When last night's sleep falls below your baseline (`×0.60` severe debt, `×0.75` moderate debt, `×0.90` mild dip), **today's energy ceiling automatically scales down** (`Today's Cap = Baseline × Sleep Modifier`).
+- **Energy-Tiered Tasks**: Tasks are graded simply as **Light / Medium / Heavy** rather than rigid numbers, paired with a **2-Click Quick Check-in bar** on the home screen and zero streaks/badges.
 
 ### 2. 🌙 Sleep & Rest Guardian
 - Log bedtime, wake time (automatic duration calculation across midnight), sleep quality (`1–5`), and daytime naps.

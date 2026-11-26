@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Low-Energy-Guard 不是效率工具，而是你的低精力状态守护工具。先稳住睡眠、身体与情绪，再谈成长。支持 Spoon 精力管理、睡眠守护、情绪与反刍暂停、低能耗建议引擎与 Obsidian 导出。" />
+  <meta name="description" content="Low-Energy-Guard 不是效率工具，而是你的低精力状态守护工具。先稳住睡眠、身体与情绪，再谈成长。支持自定义满格精力基线、睡眠质量反向修正系数、2次点击极速记录与 Obsidian 本地档案导出。" />
   <meta property="og:title" content="Low-Energy-Guard · 低精力状态守护工具" />
-  <meta property="og:description" content="面向低精力、高敏感、易内耗人群的本地优先开源守护工具：Spoon 精力管理、睡眠守护、情绪反刍暂停、低能耗建议引擎与 Obsidian 导出。" />
+  <meta property="og:description" content="面向低精力、高敏感、易内耗人群的本地优先开源守护工具：相对精力基线 × 睡眠反向修正、2次点击状态记录、反刍暂停与 Obsidian 导出。" />
   <meta name="theme-color" content="#1c2227" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.json" />
@@ -31,12 +31,33 @@
       </div>
     </header>
 
+    <!-- LOW-FRICTION 2-CLICK QUICK CHECK-IN BAR -->
+    <section class="quickbar" aria-label="2-Click Quick Check-in">
+      <div class="quick-group">
+        <span class="quick-label" data-i18n="quickStep1">① 昨晚睡眠（1 键修正今日上限）</span>
+        <div class="chip-row" id="quickSleepRow">
+          <button type="button" class="chip" data-qsleep="poor">😴 缺觉 (5.5h · ×0.60)</button>
+          <button type="button" class="chip" data-qsleep="fair">😌 一般 (6.5h · ×0.75)</button>
+          <button type="button" class="chip" data-qsleep="good">🌙 睡够了 (7.8h · ×1.00)</button>
+        </div>
+      </div>
+      <div class="quick-group">
+        <span class="quick-label" data-i18n="quickStep2">② 此刻体感（2 次点击完成状态记录）</span>
+        <div class="chip-row" id="quickStateRow">
+          <button type="button" class="chip" data-qstate="drained">🪫 很低电</button>
+          <button type="button" class="chip" data-qstate="rumination">🫧 在反刍/内耗</button>
+          <button type="button" class="chip" data-qstate="steady">🌿 平稳巡航</button>
+          <button type="button" class="chip" data-qstate="high">✨ 状态不错</button>
+        </div>
+      </div>
+    </section>
+
     <!-- MODULE 5: ALWAYS-VISIBLE LOW-ENERGY GUIDANCE ENGINE -->
     <section class="engine-card" aria-label="Low-Energy Guidance Engine">
       <div class="engine-head">
         <div class="engine-title-row">
           <span class="engine-icon">🧭</span>
-          <h2 data-i18n="engineTitle">低能耗建议引擎（综合睡眠 · 精力 · 情绪反刍）</h2>
+          <h2 data-i18n="engineTitle">低能耗建议引擎（睡眠反向修正 · 相对精力 · 反刍信号）</h2>
         </div>
         <span id="engineBadge" class="badge badge-good">温和巡航</span>
       </div>
@@ -56,27 +77,35 @@
 
     <!-- 4 CORE MODULE TABS -->
     <nav class="tabs" role="tablist" aria-label="Core Modules">
-      <button class="tab active" data-tab="spoon" role="tab" aria-selected="true" data-i18n="tabSpoon">🥄 1. Spoon 精力管理</button>
+      <button class="tab active" data-tab="spoon" role="tab" aria-selected="true" data-i18n="tabSpoon">🥄 1. 相对精力管理</button>
       <button class="tab" data-tab="sleep" role="tab" aria-selected="false" data-i18n="tabSleep">🌙 2. 睡眠与休息守护</button>
       <button class="tab" data-tab="emotion" role="tab" aria-selected="false" data-i18n="tabEmotion">🫧 3. 情绪与反刍记录</button>
       <button class="tab" data-tab="obsidian" role="tab" aria-selected="false" data-i18n="tabObsidian">📝 4. Obsidian 导出与备份</button>
     </nav>
 
     <main>
-      <!-- TAB 1: SPOON ENERGY MANAGEMENT -->
+      <!-- TAB 1: RELATIVE SPOON ENERGY MANAGEMENT -->
       <section id="panel-spoon" class="panel active" role="tabpanel">
         <div class="grid-2">
           <div class="col">
             <article class="card">
               <div class="card-head">
-                <h2 data-i18n="spoonCardTitle">今日精力值（Spoon 预算）</h2>
+                <h2 data-i18n="spoonCardTitle">今日相对精力（动态上限）</h2>
                 <span id="spoonModeBadge" class="badge badge-mid">温和巡航</span>
               </div>
-              <p class="muted small" data-i18n="spoonCardSub">诚实评估今天有多少电量。系统会帮你区分“今天能做什么、该休息什么”，避免硬撑透支。</p>
+              <p class="muted small" data-i18n="spoonCardSub">不设统一满分。自定义你的“满格精力基线”，前一天睡不好时，今日上限会自动乘以睡眠修正系数下调，防止透支。</p>
+
+              <div class="baseline-bar">
+                <label class="baseline-ctrl">
+                  <span data-i18n="baselineLbl">个人满格基线</span>
+                  <input type="number" id="personalMaxInput" value="10" min="5" max="15" step="1" />
+                </label>
+                <div id="capFormulaBox" class="formula-pill"></div>
+              </div>
 
               <div class="slider-row">
-                <input type="range" id="spoonSlider" min="1" max="12" value="6" aria-label="Energy Spoons" />
-                <div class="big-val"><span id="spoonVal">6</span> / 12</div>
+                <input type="range" id="spoonSlider" min="1" max="10" value="6" aria-label="Today Energy" />
+                <div class="big-val"><span id="spoonVal">6</span> / <span id="effectiveCapDisp">10</span></div>
               </div>
 
               <div class="meter-meta">
@@ -109,7 +138,7 @@
 
           <article class="card">
             <div class="card-head">
-              <h2 data-i18n="taskListTitle">按消耗分级的今日微行动</h2>
+              <h2 data-i18n="taskListTitle">按能耗分级的今日小事（低 / 中 / 高耗）</h2>
               <label class="inline-check small">
                 <input type="checkbox" id="adaptiveFilter" checked />
                 <span data-i18n="filterLbl">隐藏超载任务</span>
@@ -118,11 +147,10 @@
 
             <form id="taskForm" class="inline-form">
               <input type="text" id="taskInput" placeholder="新增一件小事（尽量拆到 5–15 分钟）..." required />
-              <select id="taskCost" aria-label="Task energy cost">
-                <option value="1">🥄 1 (低耗)</option>
-                <option value="2">🥄🥄 2 (中耗)</option>
-                <option value="3">🥄🥄🥄 3 (高耗)</option>
-                <option value="4">🥄×4 (极高耗)</option>
+              <select id="taskCost" aria-label="Task energy tier">
+                <option value="1">🟢 低耗</option>
+                <option value="2">🟡 中耗</option>
+                <option value="3">🟠 高耗</option>
               </select>
               <input type="text" id="taskTag" class="tag-in" placeholder="标签" />
               <button type="submit" class="btn btn-primary" data-i18n="addBtn">添加</button>
@@ -143,10 +171,10 @@
         <div class="grid-2">
           <article class="card">
             <div class="card-head">
-              <h2 data-i18n="sleepLogTitle">昨晚睡眠记录（状态核心底盘）</h2>
+              <h2 data-i18n="sleepLogTitle">昨晚睡眠记录（自动修正今日精力上限）</h2>
               <span id="sleepDurationBadge" class="badge badge-good">7.5 h</span>
             </div>
-            <p class="muted small" data-i18n="sleepLogSub">睡眠是整体状态判断的核心指标。睡得不够时，系统会自动把今天的节奏建议调低，提醒你不要继续透支。</p>
+            <p class="muted small" data-i18n="sleepLogSub">睡眠是整体状态判断的核心指标。睡得不够或质量差时，反向修正系数（×0.60 / ×0.75 / ×0.90）会自动下调今日精力上限，提醒你不要继续透支。</p>
 
             <form id="sleepForm" class="stack-form">
               <div class="form-row">
@@ -187,7 +215,7 @@
               </label>
 
               <div class="btn-row">
-                <button type="submit" class="btn btn-primary" data-i18n="saveSleepBtn">记录今日睡眠并更新建议</button>
+                <button type="submit" class="btn btn-primary" data-i18n="saveSleepBtn">保存今日睡眠并更新上限</button>
               </div>
             </form>
 
@@ -197,7 +225,7 @@
           <article class="card">
             <div class="card-head">
               <h2 data-i18n="sleepTrendTitle">近 7 天「睡眠 × 精力」双底盘节律</h2>
-              <span class="muted small" data-i18n="sleepLegend">绿线：精力勺数 · 蓝柱：睡眠小时</span>
+              <span class="muted small" data-i18n="sleepLegend">绿线：精力值 · 蓝柱：睡眠小时</span>
             </div>
             <div id="sleepChartWrap" class="chart-wrap"></div>
             <h3 class="sub-h3" data-i18n="recentSleepTitle">近期睡眠档案</h3>
@@ -270,7 +298,7 @@
               <h2 data-i18n="obsPreviewTitle">Obsidian 每日健康档案预览 (.md)</h2>
               <span class="badge badge-good">YAML Frontmatter</span>
             </div>
-            <p class="muted small" data-i18n="obsPreviewSub">自动聚合你的睡眠时长、精力勺数、情绪与反刍标记、低能耗建议和微行动清单，一键同步到本地 Obsidian Vault。</p>
+            <p class="muted small" data-i18n="obsPreviewSub">自动聚合你的睡眠时长与修正系数、相对精力、情绪与反刍标记、低能耗建议和分级小事，一键同步到本地 Obsidian Vault。</p>
             <div class="btn-row mb-10">
               <button id="copyMdBtn" class="btn btn-soft" data-i18n="copyMdBtn">📋 一键复制 Markdown</button>
               <button id="downloadDailyMdBtn" class="btn btn-primary" data-i18n="dlDailyBtn">⬇️ 下载今日 .md</button>
@@ -295,8 +323,8 @@
             <div id="toastMsg" class="toast small" role="status" aria-live="polite"></div>
 
             <div class="callout mt-16">
-              <strong data-i18n="philosophyTitle">🌱 设计理念</strong>
-              <p class="muted small" style="margin:6px 0 0" data-i18n="philosophyBody">睡眠、环境、性格、身体，才是人生最重要的底盘。Low-Energy-Guard 拒绝打卡惩罚、拒绝焦虑红点、拒绝鸡血励志，只在你能量偏低时稳稳托住节奏。</p>
+              <strong data-i18n="philosophyTitle">🌱 克制设计原则</strong>
+              <p class="muted small" style="margin:6px 0 0" data-i18n="philosophyBody">睡眠、环境、性格、身体，才是人生最重要的底盘。没有打卡、没有连续天数、没有成就系统——工具的最高优先级，是绝不能成为你新的精力负担。</p>
             </div>
           </article>
         </div>
