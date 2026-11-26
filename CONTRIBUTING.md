@@ -1,8 +1,9 @@
-# Contributing to Spoon Planner
+# Contributing to Low-Energy-Guard
 
-Thank you for contributing!
+Thank you for helping make Low-Energy-Guard calmer and more helpful!
 
-## Principles
-1. **Zero Dependencies & Offline-First**: Keep the app runnable directly from `index.html` with no build tools or external CDNs.
-2. **Low-Stimulation UX**: Never introduce overdue red shaming badges, streak punishment, or noisy animations.
-3. **Bilingual Parity**: Add both `zh` and `en` copy when introducing new UI strings.
+## Guiding Principles
+1. **Not a Hustle App**: Never add streak punishment, overdue red guilt badges, or toxic-productivity slogans.
+2. **Sleep & Body First**: Guidance recommendations should always respect sleep debt and emotional fatigue.
+3. **Zero Dependencies & 100% Local-First**: Must remain runnable directly by opening `index.html` offline with no cloud backend.
+4. **Bilingual Parity**: Provide both `zh` and `en` strings when adding UI copy.

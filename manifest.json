@@ -1,10 +1,10 @@
 {
-  "name": "Spoon Planner",
-  "short_name": "Spoons",
-  "description": "Local-First energy-budget task manager for low-energy days and ADHD brains with 5-min anti-paralysis starter, breathing pacer, and Obsidian export.",
+  "name": "Low-Energy-Guard",
+  "short_name": "LowEnergy",
+  "description": "Not a hustle productivity app — a local-first low-energy guardian for sleep, spoon energy, emotion/rumination pause, and Obsidian health archiving.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#14181b",
+  "background_color": "#13171b",
   "theme_color": "#1c2227",
   "icons": [
     {

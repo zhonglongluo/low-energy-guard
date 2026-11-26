@@ -1,12 +1,12 @@
 <div align="center">
 
-# 🥄 Spoon Planner
+# 🛡️ Low-Energy-Guard
 
-**A Local-First Energy-Budget (Spoon Theory) Task Manager for Low-Energy Days & ADHD Brains**
+> **Low-Energy-Guard is not a hustle productivity app — it is your low-energy state guardian. It helps you keep a steady rhythm during low days, reduce inner friction, and stabilize sleep and body before chasing growth.**
 
-*No guilt. No cloud accounts. Rate your real energy (1–12 spoons), auto-hide overwhelming tasks, beat paralysis with a 5-minute gentle starter, and export directly to Obsidian.*
+*Built for low-energy, highly sensitive, and easily drained minds. 100% Local-First, zero cloud, zero dependencies.*
 
-[简体中文](./README_CN.md) · [Live Demo](https://zhonglongluo.github.io/spoon-planner/) · [Features](#-features) · [Quick Start](#-quick-start) · [Contributing](./CONTRIBUTING.md)
+[简体中文](./README_CN.md) · [Live Demo](https://zhonglongluo.github.io/low-energy-guard/) · [Core Modules](#-5-core-modules) · [Quick Start](#-quick-start) · [Contributing](./CONTRIBUTING.md)
 
 ![Zero Dependencies](https://img.shields.io/badge/dependencies-0-7db4a6?style=flat-square)
 ![Local First](https://img.shields.io/badge/privacy-100%25%20local--first-5a9b8b?style=flat-square)
@@ -16,50 +16,56 @@
 
 <br/>
 
-<img src="./assets/preview.svg" alt="Spoon Planner Preview" width="900" />
+<img src="./assets/preview.svg" alt="Low-Energy-Guard Preview" width="900" />
 
 </div>
 
 ---
 
-## 💡 Why Spoon Planner?
+## 🌱 Core Philosophy
 
-Traditional to-do apps punish you for being human — overdue badges turn red, long lists trigger **ADHD task paralysis**, and high-energy days trick you into burning tomorrow's energy.
+**Sleep, environment, temperament, and body are the true foundation of life.**
 
-**Spoon Planner** is built around **Spoon Theory** and **low-friction pacing**:
-- You budget **energy (spoons)**, not just clock hours.
-- On low-spoon days, heavy tasks vanish automatically so you only see 1–2 realistic baseline wins.
-- Every piece of data lives 100% locally in your browser with instant **Obsidian Markdown** and **JSON** export.
+Most productivity apps push relentless self-discipline, turning low-battery days into guilt spirals. **Low-Energy-Guard** does the opposite: it checks your sleep, energy spoons, and emotional rumination first — then gently tells you what is safe to do lightly today, and what you have full permission to skip.
 
 ---
 
-## ✨ Features
+## 🧩 5 Core Modules
 
-1. **🥄 Dynamic Spoon Budget (1–12 Spoons) & Recharge Actions**
-   - 4 adaptive modes: **Survival (1–3)**, **Low Cruise (4–6)**, **Steady Flow (7–9)**, and **High Energy with 80% Buffer Rule (10–12)**.
-   - Completing tasks spends spoons; checking off **Recharge Actions** (+1/+2 spoons like a 15-min rest, daylight walk, or breathing) restores your meter.
-2. **🎯 Anti-Paralysis "Just One Thing" + 5-Minute Gentle Starter**
-   - Click **"Pick lightest task"** to collapse decision fatigue down to one doable item.
-   - Start a **5-minute timer** with explicit permission to stop once the 5 minutes are up.
-3. **🪜 Inline Micro-Step Breaker & 🧠 Brain Dump Parking Lot**
-   - Break intimidating tasks into tiny 2-minute sub-steps directly inline.
-   - Park stray intrusive thoughts in the **Brain Dump** without derailing your focus, and promote them into tasks later in 1 click.
-4. **🫧 Built-in Regulation & Rhythm Tools**
-   - **4-7-8 Breathing Pacer** + **20-20-20 Eye-Care Timer** + **7-Day Energy SVG Sparkline**.
-   - **Obsidian `.md` Export** (YAML frontmatter) + **JSON Backup/Restore** ([JSON Schema](./schema/state.schema.json)).
-   - Bilingual (**EN / 中文**) + **Warm Dark / Warm Paper** eye-friendly themes.
+### 1. 🥄 Spoon Energy Management
+- Log your real daily energy budget (`1–12 spoons`) plus recharge actions (`+1 / +2` for naps, walks, breathing, warm food).
+- Grade tasks by energy cost (`1–4 spoons`) and auto-hide overload on low days.
+- Includes a **"Just One Small Thing" picker** + **5-minute gentle starter** to break paralysis without pressure.
+
+### 2. 🌙 Sleep & Rest Guardian
+- Log bedtime, wake time (automatic duration calculation across midnight), sleep quality (`1–5`), and daytime naps.
+- Serves as the **primary foundation metric** feeding the Guidance Engine, triggering gentle overdraft protection whenever sleep falls below your baseline.
+- Dual-metric **7-Day Sleep × Energy SVG Rhythm Chart**.
+
+### 3. 🫧 Emotion & Rumination Record
+- 1-click mood check-in + instant rumination loop flags (**over-reviewing the past, future worry loops, self-attack, guilt while resting**).
+- Displays non-preachy **Gentle Pause Prescriptions** alongside a **4-7-8 breathing pacer** and a private thought-parking log.
+
+### 4. 📝 Obsidian Export & Local Health Archive
+- Live Markdown preview with clean **YAML Frontmatter** (`sleep_hours`, `sleep_quality`, `spoons`, `mood`, `rumination_flags`, `pace_mode`).
+- 1-click **Copy Markdown**, **Daily `.md` Download**, **7-Day Weekly Summary `.md`**, and full **JSON Backup/Restore** ([JSON Schema](./schema/state.schema.json)).
+- Zero cloud servers — your personal health archive stays 100% on your own device.
+
+### 5. 🧭 Low-Energy Guidance Engine
+- Zero hustle slogans. Zero toxic positivity.
+- Combines **Sleep + Spoons + Rumination Signals** in real time to output a calm daily pacing recommendation (e.g., *"Low energy today — do just one tiny 1-spoon thing and prioritize early rest."*).
 
 ---
 
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/zhonglongluo/spoon-planner.git
-cd spoon-planner
-open index.html   # works 100% offline with zero build step
+git clone https://github.com/zhonglongluo/low-energy-guard.git
+cd low-energy-guard
+open index.html   # runs 100% offline with zero build tools
 ```
 
-Or open the hosted static app directly: **https://zhonglongluo.github.io/spoon-planner/**
+Or open the hosted static app directly: **https://zhonglongluo.github.io/low-energy-guard/**
 
 ---
 

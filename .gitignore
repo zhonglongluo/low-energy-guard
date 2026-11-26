@@ -4,5 +4,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
-spoon-planner-backup-*.json
-Spoon-Review-*.md
+low-energy-guard-backup-*.json
+LowEnergy-Daily-*.md
+LowEnergy-Weekly-*.md
