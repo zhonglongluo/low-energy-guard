@@ -1,12 +1,11 @@
 ---
-name: Feature Request
-about: Suggest a low-friction ADHD / Spoon Theory feature
+name: Feature Suggestion
+about: Suggest a gentle, low-energy feature or guidance improvement
 title: "[Feat] "
 labels: enhancement
 ---
 
-## Problem it solves
-What low-energy or executive-dysfunction friction does this address?
+## What low-energy friction does this help with?
 
-## Proposed idea
-Keep it calm, simple, and local-first!
+## Suggested gentle design
+(Please keep it calm, non-preachy, and 100% local-first.)
