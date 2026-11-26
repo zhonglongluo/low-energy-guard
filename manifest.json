@@ -1,0 +1,16 @@
+{
+  "name": "Spoon Planner",
+  "short_name": "Spoons",
+  "description": "Local-First energy-budget task manager for low-energy days and ADHD brains with 5-min anti-paralysis starter, breathing pacer, and Obsidian export.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#14181b",
+  "theme_color": "#1c2227",
+  "icons": [
+    {
+      "src": "./assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="warm-dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Local-First energy-budget (Spoon Theory) task manager for low-energy days and ADHD brains. Zero dependencies, anti-paralysis 5-minute starter, 4-7-8 breathing, 7-day sparkline & Obsidian export." />
+  <meta property="og:title" content="Spoon Planner · Low-Energy & ADHD Task Manager" />
+  <meta property="og:description" content="Budget your daily spoons (1–12), auto-filter overwhelming tasks, break paralysis with a 5-min gentle starter, and export directly to Obsidian." />
+  <meta name="theme-color" content="#1c2227" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+  <title>Spoon Planner · 低精力 &amp; ADHD 勺子电量任务管家</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🥄</div>
+        <div>
+          <h1 data-i18n="appTitle">Spoon Planner</h1>
+          <p class="subtitle" data-i18n="appSub">面向低精力与 ADHD 的勺子电量任务系统 · 反瘫痪 5 分钟启动 · Obsidian 复盘</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="eyeBtn" class="btn btn-soft" title="20-20-20 Eye-Care Timer">👁️ <span id="eyeDisp">20:00</span></button>
+        <button id="langBtn" class="btn btn-soft">EN / 中文</button>
+        <button id="themeBtn" class="btn btn-soft">🌙 暖暗</button>
+        <button id="exportMdBtn" class="btn btn-primary" data-i18n="exportMd">📝 导出 Obsidian</button>
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <!-- LEFT COLUMN: SPOON BUDGET + PICK ONE + BREATHING + SPARKLINE -->
+      <div class="col">
+        <section class="card">
+          <div class="card-head">
+            <h2 data-i18n="budgetTitle">🥄 今日电量（勺子预算）</h2>
+            <span id="modeBadge" class="badge badge-mid">平稳巡航</span>
+          </div>
+          <p class="muted small" data-i18n="budgetSub">不必每天都满血。先如实选出今天有几把勺子，系统自动隐藏超载任务并动态计算剩余电量。</p>
+
+          <div class="slider-row">
+            <input type="range" id="spoonSlider" min="1" max="12" value="6" aria-label="Daily Spoons" />
+            <div class="spoon-num"><span id="spoonVal">6</span> / 12</div>
+          </div>
+
+          <div class="meter-row">
+            <div class="meter-meta">
+              <span id="remainingText" class="small"></span>
+              <span id="spentText" class="muted small"></span>
+            </div>
+            <div class="meter-track"><div id="spoonBarFill" class="meter-fill"></div></div>
+          </div>
+
+          <div id="modeAdvice" class="callout"></div>
+
+          <!-- ANTI-PARALYSIS PICK ONE -->
+          <div class="focus-box">
+            <div class="focus-head">
+              <strong data-i18n="pickOneTitle">🎯 专治启动瘫痪 · 只做一件事</strong>
+              <button id="pickOneBtn" class="btn btn-soft small-btn" data-i18n="pickOneBtn">帮我选一件最轻的</button>
+            </div>
+            <div id="focusTaskText" class="focus-task"></div>
+            <div class="focus-controls">
+              <button id="starterTimerBtn" class="btn btn-primary small-btn">▶ <span id="starterDisp">05:00</span> <span data-i18n="starterLbl">5分钟温柔启动</span></button>
+              <button id="focusDoneBtn" class="btn btn-soft small-btn" data-i18n="markDoneBtn">✓ 完成了！</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- RECHARGE + BREATHING -->
+        <section class="card">
+          <div class="card-head">
+            <h2 data-i18n="rechargeTitle">🔋 电量回充 &amp; 4-7-8 呼吸节拍</h2>
+            <button id="resetRechargeBtn" class="btn btn-ghost" data-i18n="resetDay">重置今日</button>
+          </div>
+          <div id="rechargeList" class="recharge-list"></div>
+
+          <div class="breath-row">
+            <div>
+              <strong data-i18n="breathTitle">🫧 4-7-8 自主神经舒缓呼吸</strong>
+              <p id="breathCue" class="muted small" data-i18n="breathIdle">脑雾、心慌或卡住时，点一下跟着呼吸 1 分钟。</p>
+              <button id="breathBtn" class="btn btn-soft small-btn" data-i18n="breathStart">开始呼吸</button>
+            </div>
+            <div class="ring-wrap">
+              <div id="breathRing" class="ring"><span id="breathLbl">就绪</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7-DAY SPARKLINE & BACKUP -->
+        <section class="card">
+          <div class="card-head">
+            <h2 data-i18n="chartTitle">📈 近 7 天精力与微行动节律</h2>
+            <button id="saveSnapshotBtn" class="btn btn-soft small-btn" data-i18n="saveSnap">记录今日打卡</button>
+          </div>
+          <div id="sparklineWrap" class="sparkline-wrap"></div>
+          <div class="backup-row">
+            <button id="exportJsonBtn" class="btn btn-soft small-btn" data-i18n="exportJson">💾 导出 JSON 备份</button>
+            <label class="btn btn-soft small-btn">
+              <span data-i18n="importJson">📂 导入恢复</span>
+              <input type="file" id="importJsonInput" accept="application/json" hidden />
+            </label>
+          </div>
+          <div id="toastMsg" class="toast small" role="status" aria-live="polite"></div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: ADAPTIVE MICRO-TASKS + BRAIN DUMP -->
+      <div class="col">
+        <section class="card">
+          <div class="card-head">
+            <h2 data-i18n="tasksTitle">⚡ 今日微行动（按电量自动过滤）</h2>
+            <label class="inline-check small">
+              <input type="checkbox" id="adaptiveFilter" checked />
+              <span data-i18n="adaptiveLbl">仅看当前电量可承接</span>
+            </label>
+          </div>
+
+          <form id="taskForm" class="task-form">
+            <input type="text" id="taskInput" placeholder="新增一个微行动（尽量拆到 5-15 分钟）..." required />
+            <select id="taskCost" aria-label="Spoon cost">
+              <option value="1">🥄 1 (极轻)</option>
+              <option value="2">🥄🥄 2 (中等)</option>
+              <option value="3">🥄🥄🥄 3 (较重)</option>
+              <option value="4">🥄×4 (深度)</option>
+            </select>
+            <input type="text" id="taskTag" class="tag-in" placeholder="标签" />
+            <button type="submit" class="btn btn-primary" data-i18n="addBtn">添加</button>
+          </form>
+
+          <ul id="taskList" class="task-list"></ul>
+
+          <div class="card-foot">
+            <span id="taskStats" class="muted small"></span>
+            <button id="resetTasksBtn" class="btn btn-ghost" data-i18n="resetChecks">重置勾选</button>
+          </div>
+        </section>
+
+        <!-- BRAIN DUMP PARKING LOT -->
+        <section class="card">
+          <div class="card-head">
+            <h2 data-i18n="dumpTitle">🧠 杂念暂存箱（Brain Dump）</h2>
+            <span class="muted small" data-i18n="dumpSub">专注时突然冒出的想法先丢进来，别打断手头动作</span>
+          </div>
+          <form id="dumpForm" class="dump-form">
+            <input type="text" id="dumpInput" placeholder="把脑子里突然跳出来的念头先停在这里..." required />
+            <button type="submit" class="btn btn-soft" data-i18n="parkBtn">暂存</button>
+          </form>
+          <ul id="dumpList" class="dump-list"></ul>
+        </section>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>Spoon Planner · MIT Open Source · 100% Local-First &amp; Zero Dependencies</span>
+      <span>More Local-First Tools: <a href="https://zhonglongluo.github.io/med-alcohol-guard/" target="_blank" rel="noopener">Med × Alcohol Guard 🚦</a> · <a href="https://github.com/zhonglongluo/spoon-planner" target="_blank" rel="noopener">GitHub ↗</a></span>
+    </footer>
+  </div>
+
+  <script src="data/presets.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
